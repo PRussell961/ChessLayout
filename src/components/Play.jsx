@@ -55,11 +55,19 @@ function Play() {
 
   return (
     <>
-      <Chessboard position={game.fen()} onPieceDrop={onDrop} />
-      <h4>Current FEN: {game.fen()}</h4>
+      <Chessboard position={game.fen()} 
+      onPieceDrop={onDrop} 
+/>
+      <p>Current FEN: {game.fen()}</p>
       
 
-  <input  onChange={fenChange} value={newFen} type="text" class="form-control" placeholder="Paste new FEN here" aria-label="Username" aria-describedby="basic-addon1" />
+  <input  onChange={fenChange} 
+          value={newFen} 
+          type="text" 
+          class="form-control" 
+          placeholder="Paste new FEN here" 
+          aria-label="Username" 
+          aria-describedby="basic-addon1"/>
 
     </>
   );

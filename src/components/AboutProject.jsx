@@ -1,7 +1,7 @@
 function AboutProject() {
     return (
         <>
-        <p>TODO Discuss</p>;
+        <p>TODO Make About Project</p>;
         </>
     );
 }

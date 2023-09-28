@@ -1,34 +1,29 @@
 import { useImperativeHandle } from "react";
 import { Link, useMatch, useResolvedPath } from "react-router-dom";
-
-/* Do this better at some point zzz */
-const setActive = () => {
-  console.log("you just clicked");
-};
-
+import "../componentcss/NavBar.css"
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 function NavigationBar() {
   return (
     <>
-    <div className="nav-wrap">
-    <ul className="nav nav-pills nav-fill">
-      <li id="aboutProject" className="nav-item">
-        <Link className="nav-link" to="/AboutProject">
-          <h3>About Project</h3>
-        </Link>
-      </li>
-      <li id="play" className="nav-item">
-        <Link className="nav-link" to="/">
-          <h3>Play</h3>
-        </Link>
-      </li>
-      <li id="aboutUs"  className="nav-item">
-        <Link className="nav-link" to="/AboutUs">
-          <h3>About Us</h3>
-        </Link>
-      </li>
-    </ul>
-    <br></br>
-    </div>
+
+    <Navbar style={{backgroundColor: "#03261D", position: "sticky"}} expand="lg" sticky="top" variant="dark">
+      <Container sticky="top">
+        <Navbar.Brand href="#home"><p className="navText">Chess AI </p></Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href=""><p className="navText"> Welcome </p></Nav.Link>
+            <Nav.Link href=""><p className="navText"> Play</p></Nav.Link>
+            <Nav.Link href=""><p className="navText"> About Us</p></Nav.Link>
+            <Nav.Link href=""><p className="navText"> About Project</p></Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+
     </>
   );
 }
