@@ -1,8 +1,10 @@
+import "../componentcss/Play.css"
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 import { useState, useEffect, useRef  } from "react";
-
-
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Button from 'react-bootstrap/Button';
 function Play() {
   const [game, setGame] = useState(new Chess());
   const [newFen, setNewFen] = useState('');
@@ -56,8 +58,10 @@ function Play() {
   return (
     <>
       <Chessboard position={game.fen()} 
-      onPieceDrop={onDrop} 
-/>
+        onPieceDrop={onDrop} 
+        customDarkSquareStyle={{ backgroundColor: "#096A51" }}
+        customLightSquareStyle={{ backgroundColor: "#F5FFFC" }}
+      />
       <p>Current FEN: {game.fen()}</p>
       
 
@@ -67,8 +71,25 @@ function Play() {
           class="form-control" 
           placeholder="Paste new FEN here" 
           aria-label="Username" 
-          aria-describedby="basic-addon1"/>
+          aria-describedby="basic-addon1"
+          />
+    
+    {/* Buttons to style */}
+      <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Difficulty: Easy
+      </Dropdown.Toggle>
 
+      <Dropdown.Menu>
+        <Dropdown.Item>Easy</Dropdown.Item>
+        <Dropdown.Item>Medium</Dropdown.Item>
+        <Dropdown.Item>Hard</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+    
+    <Button variant="outline-success">Swap</Button>
+    <Button variant="outline-success">Undo</Button>
+    <Button variant="outline-success">Reset</Button>
     </>
   );
 }
