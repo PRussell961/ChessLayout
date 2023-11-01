@@ -5,10 +5,15 @@ import { useState, useEffect, useRef  } from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 function Play() {
   const [game, setGame] = useState(new Chess());
   const [newFen, setNewFen] = useState('');
-  
+  const [undoPos, setUndoPos] = useState('');
+  const [boardO, setboardO] = useState('white');
   //Update board with new move
   const makeMove = (move) => {
     game.move(move);
@@ -38,6 +43,7 @@ function Play() {
   //Control basic logic and rules of the board
   function onDrop(sourceSquare, targetSquare, piece) {
     try {
+      setUndoPos(game.fen())      
       const move = makeMove({
         from: sourceSquare,
         to: targetSquare,
@@ -54,42 +60,95 @@ function Play() {
       return false;
     }
   }
+  function swap(){
+    console.log(game.turn());
+    if(boardO == "white"){
+      setboardO("black");
+    }
+    else{
+      setboardO("white");
+    }
+    makeRandomMove();
+  }
 
+  function reset() {    
+    setGame(new Chess("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"));
+    setboardO("white");
+  }
+
+  function undo(){
+    setGame(new Chess(undoPos));
+  }
   return (
-    <>
-      <Chessboard position={game.fen()} 
-        onPieceDrop={onDrop} 
-        customDarkSquareStyle={{ backgroundColor: "#096A51" }}
-        customLightSquareStyle={{ backgroundColor: "#F5FFFC" }}
-      />
-      <p>Current FEN: {game.fen()}</p>
-      
-
-  <input  onChange={fenChange} 
-          value={newFen} 
-          type="text" 
-          class="form-control" 
-          placeholder="Paste new FEN here" 
-          aria-label="Username" 
-          aria-describedby="basic-addon1"
-          />
-    
-    {/* Buttons to style */}
+    <>   
+    <div style={{ padding: 10}}>
+    <Container>
+      <Row>
+      <Col>      
       <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Difficulty: Easy
-      </Dropdown.Toggle>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          Difficulty: Easy
+        </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        <Dropdown.Item>Easy</Dropdown.Item>
-        <Dropdown.Item>Medium</Dropdown.Item>
-        <Dropdown.Item>Hard</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-    
-    <Button variant="outline-success">Swap</Button>
-    <Button variant="outline-success">Undo</Button>
-    <Button variant="outline-success">Reset</Button>
+        <Dropdown.Menu>
+            <Dropdown.Item>Easy</Dropdown.Item>
+            <Dropdown.Item>Medium</Dropdown.Item>
+            <Dropdown.Item>Hard</Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Col>
+      <Col></Col>
+        <Col>
+        <Button variant="outline-success"
+                onClick={() => {
+                  reset()
+                }}            
+        >Reset</Button>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        </Col>
+        <Col>
+          <Chessboard position={game.fen()} 
+          onPieceDrop={onDrop}
+          boardOrientation={boardO} 
+          customDarkSquareStyle={{ backgroundColor: "#096A51" }}
+          customLightSquareStyle={{ backgroundColor: "#F5FFFC" }}
+          />
+        </Col>
+        <Col>
+        </Col>
+      </Row>
+      <Row>
+      <Col>    
+      <Button variant="outline-success"
+      onClick={() => {
+        undo()
+      }}     
+      >Undo</Button>
+      </Col>
+      <Col>
+      </Col>
+      <Col><Button variant="outline-success"
+             onClick={() => {
+              swap()
+            }}  
+      >Swap</Button></Col>
+      </Row>
+     
+    </Container>
+    <p>Current FEN: {game.fen()}</p>
+      
+      <input  onChange={fenChange} 
+              value={newFen} 
+              type="text" 
+              class="form-control" 
+              placeholder="Paste new FEN here" 
+              aria-label="Username" 
+              aria-describedby="basic-addon1"
+              />
+    </div>
     </>
   );
 }

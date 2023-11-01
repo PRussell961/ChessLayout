@@ -17,26 +17,30 @@ function App() {
   integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
   crossorigin="anonymous"
 />
-
 <script src="https://cdn.jsdelivr.net/npm/react/umd/react.production.min.js" crossorigin></script>
-
 <script
   src="https://cdn.jsdelivr.net/npm/react-dom/umd/react-dom.production.min.js"
   crossorigin></script>
-
 <script
   src="https://cdn.jsdelivr.net/npm/react-bootstrap@next/dist/react-bootstrap.min.js"
   crossorigin></script>
 
-<script>var Alert = ReactBootstrap.Alert;</script>
     <div className='App'>
       <NavigationBar />
-      <Welcome />
-      <div className="container">
-      <Play />
+      <div id='Welcome'>
+        <Welcome /> 
       </div>
-      <AboutUs />
-      <AboutProject />
+      <div className="container">
+        <div id='Play'>
+          <Play />
+        </div>
+      </div>
+      <div id='AboutUs'>
+        <AboutUs />
+      </div>
+      <div id='AboutProject'>
+        <AboutProject />
+      </div>
     </div>
     </>
   );
