@@ -10,8 +10,3 @@
   html {
     scroll-padding-top: 4rem;
   }
-  nav {
-    height: 3rem;
-    position: sticky;
-    top: 0;
-  }
