@@ -110,12 +110,22 @@ function Play() {
         <Col>
         </Col>
         <Col>
+        <div className="mobilehidden">
           <Chessboard position={game.fen()} 
           onPieceDrop={onDrop}
           boardOrientation={boardO} 
           customDarkSquareStyle={{ backgroundColor: "#096A51" }}
           customLightSquareStyle={{ backgroundColor: "#F5FFFC" }}
           />
+          </div>
+          <div className="webhidden" style={{width : '60vw'}}>
+          <Chessboard position={game.fen()} 
+          onPieceDrop={onDrop}
+          boardOrientation={boardO} 
+          customDarkSquareStyle={{ backgroundColor: "#096A51" }}
+          customLightSquareStyle={{ backgroundColor: "#F5FFFC" }}
+          />
+          </div>
         </Col>
         <Col>
         </Col>
