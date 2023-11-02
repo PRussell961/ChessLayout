@@ -146,9 +146,7 @@ function Play() {
             }}  
       >Swap</Button></Col>
       </Row>
-     
-    </Container>
-    <p>Current FEN: {game.fen()}</p>
+      <p style={{overflowWrap: 'break-word'}}>Current FEN: {game.fen()}</p>
       
       <input  onChange={fenChange} 
               value={newFen} 
@@ -158,6 +156,7 @@ function Play() {
               aria-label="Username" 
               aria-describedby="basic-addon1"
               />
+    </Container>
     </div>
     </>
   );
