@@ -8,18 +8,38 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Axios from 'axios';
 
 function Play() {
   const [game, setGame] = useState(new Chess());
   const [newFen, setNewFen] = useState('');
   const [undoPos, setUndoPos] = useState('');
   const [boardO, setboardO] = useState('white');
+  const endpoint = 'http://localhost:8080/move';
+  
+  //Difficulty manager, 1 = easy, 2 = med, 3 = hard
+  var difficulty = 1;
+  function changeDiff(newDiff){      
+    switch(newDiff) {
+      case 1:
+        document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Easy";
+        break;
+      case 2:
+        document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Medium";
+        break;
+      case 3:
+        document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Hard";
+        break;
+    }
+    difficulty = newDiff;
+  }
   //Update board with new move
   const makeMove = (move) => {
     game.move(move);
     setGame(new Chess(game.fen()));
   };
   
+
   //Load new fen from input field
   const fenChange = state =>{
     setNewFen(state.target.value);
@@ -31,15 +51,15 @@ function Play() {
     }
   }
 
-  //Generate aand play a random move
-  function makeRandomMove() {
-    const possibleMoves = game.moves();
-    if (game.isGameOver() || game.isDraw() || possibleMoves.length === 0)
-      return; // exit if the game is over
-    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
-    makeMove(possibleMoves[randomIndex]);
-  }
+  //Call to API to get move
+  function MakeAIMove() { 
   
+    console.log("Attempting to reach api and sending: " + game.fen());   
+    Axios.post(endpoint,{FEN: game.fen(), diff: difficulty }).then((response) =>
+    setGame(new Chess(response.data))//console.log(response.data)
+  ) 
+
+};    
   //Control basic logic and rules of the board
   function onDrop(sourceSquare, targetSquare, piece) {
     try {
@@ -53,7 +73,7 @@ function Play() {
       if (move === null) {
         return false;
       }
-      setTimeout(makeRandomMove, 200);
+      setTimeout(MakeAIMove, 200);
       return true;
     
     } catch (error) {
@@ -62,13 +82,13 @@ function Play() {
   }
   function swap(){
     console.log(game.turn());
-    if(boardO == "white"){
+    if(boardO === "white"){
       setboardO("black");
     }
     else{
       setboardO("white");
     }
-    makeRandomMove();
+    MakeAIMove();
   }
 
   function reset() {    
@@ -85,17 +105,11 @@ function Play() {
     <Container>
       <Row>
       <Col>      
-      <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
-          Difficulty: Easy
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-            <Dropdown.Item>Easy</Dropdown.Item>
-            <Dropdown.Item>Medium</Dropdown.Item>
-            <Dropdown.Item>Hard</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+      <DropdownButton  variant="outline-success" id="dropdown-item-button" title="Difficulty: Easy">
+      <Dropdown.Item as="button" onClick={() => {changeDiff(1)}}>Easy</Dropdown.Item>
+      <Dropdown.Item as="button" onClick={() => {changeDiff(2)}}>Medium</Dropdown.Item>
+      <Dropdown.Item as="button" onClick={() => {changeDiff(3)}}>Hard</Dropdown.Item>
+    </DropdownButton>
       </Col>
       <Col></Col>
         <Col>
@@ -146,19 +160,9 @@ function Play() {
             }}  
       >Swap</Button></Col>
       </Row>
-      <p style={{overflowWrap: 'break-word'}}>Current FEN: {game.fen()}</p>
-      
-      <input  onChange={fenChange} 
-              value={newFen} 
-              type="text" 
-              class="form-control" 
-              placeholder="Paste new FEN here" 
-              aria-label="Username" 
-              aria-describedby="basic-addon1"
-              />
     </Container>
     </div>
     </>
   );
 }
-export default Play;
+  export default Play;
