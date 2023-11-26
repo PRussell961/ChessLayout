@@ -4,11 +4,13 @@ function Welcome() {
         <>
         <div id ="welcome-wrap">
             <div id="background">
-                <div id="aLayer">
-
+                <div className="aLayer">
+                <p>Div 1</p>
                 </div>
-            </div>
-            <p>TODO</p>;  
+                <div className="aLayer">
+                Div 2
+                </div>
+            </div>             
         </div>
         
         </>

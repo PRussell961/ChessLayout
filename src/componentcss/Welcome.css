@@ -1,3 +1,17 @@
 #welcome-wrap {
     background-color: #03261D;
 }
+.aLayer{
+    background-color: rgba(255, 255, 255, .3);
+    flex-grow: 3;
+}
+
+#background{
+    background-color: black;
+    margin-left: 3em;
+    margin-right: 3em;
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
