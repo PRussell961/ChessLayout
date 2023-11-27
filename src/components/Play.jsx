@@ -15,23 +15,25 @@ function Play() {
   const [newFen, setNewFen] = useState('');
   const [undoPos, setUndoPos] = useState('');
   const [boardO, setboardO] = useState('white');
-  const endpoint = 'http://localhost:8080/move';
-  
+  const endpoint = 'http://3.144.89.243:8080/move';
+  const [difficulty,setDiff] = useState('1')
   //Difficulty manager, 1 = easy, 2 = med, 3 = hard
-  var difficulty = 1;
+
   function changeDiff(newDiff){      
     switch(newDiff) {
       case 1:
         document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Easy";
+        setDiff(1);
         break;
       case 2:
         document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Medium";
+        setDiff(2);
         break;
       case 3:
         document.getElementById("dropdown-item-button").innerHTML = "Difficulty: Hard";
+        setDiff(3);
         break;
     }
-    difficulty = newDiff;
   }
   //Update board with new move
   const makeMove = (move) => {
@@ -53,12 +55,12 @@ function Play() {
 
   //Call to API to get move
   function MakeAIMove() { 
-  
-    console.log("Attempting to reach api and sending: " + game.fen());   
+    try{
+    console.log("Attempting to reach api and sending: " + game.fen() + "With Difficulty of: " + difficulty);   
     Axios.post(endpoint,{FEN: game.fen(), diff: difficulty }).then((response) =>
     setGame(new Chess(response.data))//console.log(response.data)
   ) 
-
+}catch(error){}
 };    
   //Control basic logic and rules of the board
   function onDrop(sourceSquare, targetSquare, piece) {
@@ -124,7 +126,7 @@ function Play() {
         <Col>
         </Col>
         <Col>
-        <div className="mobilehidden">
+        <div className="mobilehidden" style={{width : '30vw'}}>
           <Chessboard position={game.fen()} 
           onPieceDrop={onDrop}
           boardOrientation={boardO} 

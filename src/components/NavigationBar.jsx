@@ -6,13 +6,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavLink from "react-bootstrap/esm/NavLink";
 import React from 'react'
 //Nav Bar
-function NavigationBar() {
 
+function NavigationBar() {
+  document.title ="BigbrAIn";
   return (
     <>
     <Navbar style={{backgroundColor: "#03261D", position: "sticky"}} expand="lg" sticky="top" variant="dark" id="navbar">
       <Container sticky="top">
-        <Navbar.Brand><p className="navText">Chess AI </p></Navbar.Brand>
+        <Navbar.Brand><p className="navText">Big BrAIn </p></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -23,7 +24,6 @@ function NavigationBar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-
     </Navbar>
     </>
   );
