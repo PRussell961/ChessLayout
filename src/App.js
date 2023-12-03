@@ -26,20 +26,20 @@ function App() {
   crossorigin></script>
 
     <div className='App'>
+    <div id='AboutProject'>
+        <AboutProject />
+      </div>
       <NavigationBar />
       <div id='Welcome'>
         <Welcome /> 
+      </div>
+            <div id='AboutUs'>
+        <AboutUs />
       </div>
       <div className="container">
         <div id='Play'>
           <Play />
         </div>
-      </div>
-      <div id='AboutUs'>
-        <AboutUs />
-      </div>
-      <div id='AboutProject'>
-        <AboutProject />
       </div>
     </div>
     </>

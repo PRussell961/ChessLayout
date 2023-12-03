@@ -8,19 +8,18 @@ import React from 'react'
 //Nav Bar
 
 function NavigationBar() {
-  document.title ="BigbrAIn";
+  document.title ="SP-14 Red Chess AI";
   return (
     <>
     <Navbar style={{backgroundColor: "#03261D", position: "sticky"}} expand="lg" sticky="top" variant="dark" id="navbar">
       <Container sticky="top">
-        <Navbar.Brand><p className="navText">Big BrAIn </p></Navbar.Brand>
+        <Navbar.Brand><p className="navText">SP-14 Red Chess AI </p></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-          <Nav.Link href='#Welcome'><p className="navText"> Welcome </p></Nav.Link>
-          <Nav.Link href='#Play'><p className="navText"> Play </p></Nav.Link>
-          <Nav.Link href='#AboutUs'><p className="navText"> About Us </p></Nav.Link>
-          <Nav.Link href='#AboutProject'><p className="navText"> About Project </p></Nav.Link>      
+          <Nav.Link href='#Welcome'><p className="navText"> Welcome </p></Nav.Link>         
+          <Nav.Link href='#AboutUs'><p className="navText"> About Us </p></Nav.Link> 
+          <Nav.Link href='#Play'><p className="navText"> Play </p></Nav.Link>     
           </Nav>
         </Navbar.Collapse>
       </Container>
